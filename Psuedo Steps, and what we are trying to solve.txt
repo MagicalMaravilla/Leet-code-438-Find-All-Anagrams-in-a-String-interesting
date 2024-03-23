@@ -1,0 +1,58 @@
+The challenge you're referring to, Problem 438 on LeetCode titled "Find All Anagrams in a String", 
+involves searching for all the start indices of anagrams of a shorter string p within a longer string s. An anagram of a string is another string that contains the same characters, only the order of characters can be different. For example, "abc" is an anagram of "bca".
+
+In this problem, you're given two strings: s and p. 
+The goal is to find all the start indices of p's anagrams in s. 
+The output should be a list of indices from the string s where the anagrams start.
+
+Let's say s = "cbaebabacd" and p = "abc". The anagrams of p within s are "cba" and "bac",
+ and they start at indices 0 and 6, respectively. So, the output should be [0, 6].
+
+Detailed Pseudo Steps
+To solve this problem, 
+a common approach is to use the sliding window technique 
+along with a character count comparison strategy.
+
+
+
+Initialize Character Counts: First, 
+create two arrays (or hashmaps) to count characters in p and in the current window of s. 
+Let's call these pCount and sCount.
+
+Count Characters in p: Fill in pCount with the character frequencies of p.
+
+Initialize the Sliding Window: The sliding window will start from the beginning of s and 
+will be of the same length as p. Initially, 
+fill in sCount with the characters that are within this first window in s.
+
+Slide the Window Across s: Start moving the window one character at a time towards the right. 
+For each move:
+a. Check if pCount is equal to sCount. 
+If yes, add the start index of the current window to the result list. 
+This means the current window is an anagram of p.
+b. Update sCount: Increment the count of the new character that is included in the window and 
+decrement the count of the character that is excluded from the window.
+Return Result: 
+After sliding through the entire string s, return the list of starting indices of the anagrams.
+
+
+Step-by-step breakdown deep dive:
+
+1. Count Characters: in p: We create a character count called pCount, for all characters in p. If p = "abc", the initial window would be "cba",
+which also has the count {a: 1, b: 1, c: 1} because there's one of each character.
+
+2. Initial Window in 's': You then look at a substring of 's' that is the same length as 'p'. 
+This is the "window". For s = cbaebabacd and p = abc, my initial window would be "cba" (called an sCount for the window.)
+
+3. Check for Anagram: We compare pCount and the sCount for my current window. If they match, it means the substring in my window is an anagram of p, because it has the same character counts.
+cba isn anagram of abc, so we note down the starting index of this window, which is 0.
+
+4. Slide the Window:You move the window one character to the right to examine the next substring of s that is the same length as p. Each time we move, we update sCount to reflect the characters in the new window.
+You add the count of the new character that entered the window and subtract the count of the character to the left of the window.
+
+5. Countinue Until End: You keep sliding the window, updating counts, and checking for anagram matches until you've examined all possible substrings of 's' that are the same length as 'p'.
+
+6. Collect Results: Every time you find an sCount that matches pCount, we add the starting index of that window to our results list.
+
+The fundemental principle is comparing character counts, not sequences of characters. 
+This method allows us to find all anagrams of 'p' in 's' by identifying substrings of 's' that have the same character composition as 'p', disregarding the order of characters, hence anagram.
